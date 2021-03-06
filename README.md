@@ -6,6 +6,7 @@ For Towson University COSC484
 
 ### Prerequisites
 1. Have a text editor and an internet browser (preferable Chrome) installed on the machine
+1. Be running Linux or MacOS and using the terminal or if on Windows use the (Git terminal application)[https://git-scm.com/download/win]
 
 ### Creating a basic webpage
 1. Go to a local directory you would like the files to be saved, then create 2 new files named `index.html` and `style.css`
@@ -216,14 +217,16 @@ export default App;
 1. Change the permissions of the `MyKeyPair.pem` file using `chmod 400 MyKeyPair.pem`
 1. On the web browser select `Security Groups` under the `Network & Security`, and select the orange `Create Security Group` button
 1. Name it something like `Connected`, description as `connected` and set the inbound rules to include `All Traffic` on `0.0.0.0/0` and select `Create security group`
-1. Go back to the EC2 dashboard and select the running instance, change the security group to `Connected`
+1. Go back to the EC2 dashboard and checkbox the running instance, then select 'Actions`, `Security` and then `Change security groups` dropdowns
+1. From there change add and set the security group of this instance to be `Connected`
 1. Back in the terminal, copy over the files from the `Express API` sections onto the EC2 Cloud computer with `rsync -rave "ssh -i MyKeyPair.pem" "./basic-api" ec2-user@{YOUR_API_ADDRESS_HERE}:/home/ec2-user
 1. Connect into the ec2 instance with this command: `ssh -i "MyKeyPair.pem" ec2-user@{YOUR_API_ADDRESS_HERE}`
-1. Once logged in navigate to the `basic-api` folder (`cd basic-api`)
+1. Once logged in type in this command to allow the api to run once disconnected from the instance: `screen`
+1. Then navigate to the `basic-api` folder (`cd basic-api`)
 1. Install node and yarn on the ec2 instance with `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
 1. Run `. ~/.nvm/nvm.sh` then `nvm install node`
 1. Then run `npm install` and then run `npm start`
-1. NOTE: Do not close this window or else the API will stop running
+1. Press Control-A D to detach the screen and can now freely disconnect from the screen session
 
 ### Part 3: Integrated website deployment with S3 interfacing with API on EC2
 1. Run `yarn build` in the react directory from `React Website using API` section
@@ -235,7 +238,6 @@ export default App;
 1. Drag in the *contents* of `build` directory from the `React Website using API` section, and click the `Upload` button
 1. Click the `react-website` link near the of of the page
 1. Click on the `Objects` tab, and select all the files and then click the `Actions` button and select `Make public`
-1. Click on the Security tab, and select `Connected` as the security group
 1. Click on the `Properties` tab, scroll to the bottom, click the `Edit` button for the `Static website hosting` section and select `Enable`
 1. Type in `index.html` in the index document textbox and then select `Save changes` button
 1. Now if you scroll down to the bottom of the page again, you should see a url hosting the public static react website 
